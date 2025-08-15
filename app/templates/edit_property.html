@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Property{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Edit Property: {{ property.address }}</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.address.label(class="form-label") }}
+        {{ form.address(class="form-control") }}
+    </div>
+    <p>
+            {{ form.rent_amount.label }}<br>
+            {{ form.rent_amount(size=16) }}<br>
+            {% for error in form.rent_amount.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.landlord_portion.label }}<br>
+            {{ form.landlord_portion(size=16) }}<br>
+            {% for error in form.landlord_portion.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.utility_account_id.label }}<br>
+            {{ form.utility_account_id() }}<br>
+            {% for error in form.utility_account_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
