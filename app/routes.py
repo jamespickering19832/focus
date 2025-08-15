@@ -18,11 +18,7 @@ import sqlalchemy as sa
 from flask_login import login_required, login_user, logout_user, current_user
 import bcrypt
 from app.db_routes import role_required
-
-ALLOWED_EXTENSIONS = {'csv'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+from app.utils import allowed_file
 
 @app.route('/')
 @app.route('/index')
@@ -650,7 +646,15 @@ def rent_charge_batches():
 
 @app.route('/rollback_rent_charges/<int:batch_id>', methods=['POST'])
 def rollback_rent_charges(batch_id):
+    """Remove all rent charge transactions that were created in a batch."""
+
     batch = RentChargeBatch.query.get_or_404(batch_id)
-    for transaction in batch.transactions:
-        # Reverse the allocation
-        if transaction..py
+    for transaction in list(batch.transactions):
+        # Delete each transaction generated in the batch
+        db.session.delete(transaction)
+
+    db.session.delete(batch)
+    db.session.commit()
+    flash("Rent charges rolled back.")
+    return redirect(url_for('rent_charge_batches'))
+

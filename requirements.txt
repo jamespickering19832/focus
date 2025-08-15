@@ -5,5 +5,6 @@ Flask-Talisman
 Flask-Mail
 fpdf
 Flask-Migrate
-freezegun 
+freezegun
 Flask-Limiter
+pandas
