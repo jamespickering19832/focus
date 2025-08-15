@@ -1,0 +1,9 @@
+psycopg2-binary
+Flask-Login
+bcrypt
+Flask-Talisman
+Flask-Mail
+fpdf
+Flask-Migrate
+freezegun 
+Flask-Limiter
